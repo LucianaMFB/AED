@@ -78,7 +78,7 @@ public:
         return q;
     }
 
-    void Dibujamesta(sf::RenderWindow& window, sf::Font& font, float x, float y, int value, int grado, float antesX = -1, float antesY = -1) {
+    void Dibujame(sf::RenderWindow& window, sf::Font& font, float x, float y, int value, int grado, float antesX = -1, float antesY = -1) {
         std::string mensaje = std::to_string(value);
 
         if (antesX >= 0) {
@@ -109,7 +109,7 @@ public:
 
     void dibujarArbol(sf::RenderWindow& window, sf::Font& font, Node* nodo, float x, float y, float espacio = 400.f, float antesX = -1, float antesY = -1) {
         if (!nodo) return;
-        Dibujamesta(window, font, x, y, nodo->data,nodo->grade, antesX, antesY);
+        Dibujame(window, font, x, y, nodo->data,nodo->grade, antesX, antesY);
 
         dibujarArbol(window, font, nodo->nodes[0], x - espacio, y + 120, espacio / 2, x + 18, y + 20);
         dibujarArbol(window, font, nodo->nodes[1], x + espacio, y + 120, espacio / 2, x + 18, y + 20);
@@ -117,7 +117,7 @@ public:
 
     void print(sf::RenderWindow& window, sf::Font& font) { dibujarArbol(window, font, head, 800, 50); }
 
-    bool GuardaCaminoMarta(int val, std::stack<Node*> &mem) {
+    bool GuardaCamino(int val, std::stack<Node*> &mem) {
         Node* p = head;
 
         while ((p) && (p->data != val)) {
@@ -129,9 +129,9 @@ public:
         else { return 0; }
     }
 
-    void QuemameEsta(int val) {
+    void Quemame(int val) {
         std::stack<Node*> mem;
-        if (!GuardaCaminoMarta(val, mem)) { std::cout << "No data"; return; }
+        if (!GuardaCamino(val, mem)) { std::cout << "No data"; return; }
 
         else {
             int contadorsuperserio = 1;
@@ -176,23 +176,15 @@ int main()
     sf::Font font;
     if (!font.loadFromFile("C:/Windows/Fonts/arial.ttf")) return -1;
 
+    std::vector<int> Elementos = { 40, 30, 60, 50, 80, 45, 55, 75, 90 };
+
     ArbolBinario a;
-    a.insert(40);
 
-    a.insert(30);
-    a.insert(60);
+    for (int i = 0; i < Elementos.size(); i++) {
+        a.insert(Elementos[i]);
+    }
 
-    a.insert(50);
-    a.insert(80);
-
-    a.insert(45);
-    a.insert(55);
-
-    a.insert(75);
-    a.insert(90);
-    
-
-    a.QuemameEsta(80);
+    a.Quemame(80);
 
     while (window.isOpen()) {
         sf::Event event;
