@@ -161,7 +161,7 @@ public:
         Lado_Derecha();
     }
 
-    void Dibujamesta(sf::RenderWindow& window, sf::Font& font, bool a, float x, float y, int value, float antesX = -1, float antesY = -1) {
+    void Dibujame(sf::RenderWindow& window, sf::Font& font, bool a, float x, float y, int value, float antesX = -1, float antesY = -1) {
         std::string mensaje = std::to_string(value);
 
         if (antesX >= 0) {
@@ -193,7 +193,7 @@ public:
 
     void dibujarArbol(sf::RenderWindow& window, sf::Font& font, Node* nodo, float x, float y, float espacio = 400.f, float antesX = -1, float antesY = -1) {
         if (!nodo) return;
-        Dibujamesta(window, font, nodo->cumple, x, y, nodo->data, antesX, antesY);
+        Dibujame(window, font, nodo->cumple, x, y, nodo->data, antesX, antesY);
 
         dibujarArbol(window, font, nodo->nodes[0], x - espacio, y + 120, espacio / 2, x + 18, y + 20);
         dibujarArbol(window, font, nodo->nodes[1], x + espacio, y + 120, espacio / 2, x + 18, y + 20);
@@ -211,37 +211,15 @@ int main()
     sf::Font font;
     if (!font.loadFromFile("C:/Windows/Fonts/arial.ttf")) return -1;
     
+    std::vector<int> Elementos = { 50,30,70,20,40,60,80,15,25,35,45,55,65,75,90,12,22,38,42,48,52,62,68,78,85,95 };
+
     ArbolBinario a;
-    a.insert(50);
-    
-    a.insert(30);
-    a.insert(70);
-    
-    a.insert(20);
-    a.insert(40);
-    a.insert(60);
-    a.insert(80);
 
-    a.insert(15);
-    a.insert(25);
-    a.insert(35);
-    a.insert(45);
-    a.insert(55);
-    a.insert(65);
-    a.insert(75);
-    a.insert(90);
+    for (int i = 0; i < Elementos.size(); i++) {
+        a.insert(Elementos[i]);
+    }
 
-    a.insert(12);
-    a.insert(22);
-    a.insert(38);
-    a.insert(42);
-    a.insert(48);
-    a.insert(52);
-    a.insert(62);
-    a.insert(68);
-    a.insert(78);
-    a.insert(85);
-    a.insert(95);
+    
     a.perimeter();
 
 
